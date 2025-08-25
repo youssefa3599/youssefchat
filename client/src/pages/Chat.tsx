@@ -5,7 +5,9 @@ import ChatContainer from "../Components/chatContainer";
 import Welcome from "../Components/Welcome";
 import Contacts from "../Components/Contacts";
 
-const socketHost = "http://localhost:5000";
+// Instead of hardcoding localhost:
+const socketHost = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
 const Chat: React.FC = () => {
   const socket = useRef<Socket | null>(null);
