@@ -7,6 +7,8 @@ interface LoginFormData {
   email: string;
   password: string;
 }
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Login: React.FC = () => {
     console.log("🔐 Attempting login with:", inputs);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", inputs);
+      const response = await axios.post(`${apiUrl}/api/auth/login`, inputs);
       console.log("✅ Login API response:", response.data);
 
       const { user, token } = response.data;

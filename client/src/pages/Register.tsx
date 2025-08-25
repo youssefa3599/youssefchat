@@ -4,11 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
+
 interface RegisterFormData {
   username: string;
   email: string;
   password: string;
 }
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -26,7 +29,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       console.log("🟢 Submitting registration:", inputs);
-      const res = await axios.post("http://localhost:5000/api/auth/register", inputs);
+      const res = await axios.post(`${apiUrl}/api/auth/register`, inputs);
       console.log("✅ Registration success:", res.data);
       alert("Registration successful. Please log in.");
       navigate("/login");

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Contacts.css";
 
+
+const apiUrl = process.env.REACT_APP_API_URL;
 interface User {
   _id: string;
   username: string;
@@ -38,11 +40,11 @@ const Contacts: React.FC<Props> = ({ currentUserId, onChatSelect }) => {
       console.log("🔐 [CONTACTS] Token from localStorage:", token);
 
       try {
-        const response = await axios.get("http://localhost:5000/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+       const response = await axios.get(`${apiUrl}/api/users`, {
+  headers: {
+    Authorization: `Bearer ${token}`, // if needed
+  },
+});
 
         console.log("✅ [CONTACTS] Users received from backend:", response.data);
 
