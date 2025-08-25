@@ -15,11 +15,20 @@ const app = express();
 const server = http.createServer(app);
 
 // ✅ REST API CORS
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
-}));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://youssefchat-nvhr.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
 
 // ✅ API Routes
 app.use('/api/auth', authRoutes);
@@ -29,10 +38,14 @@ app.use('/api/messages', messageRoutes);
 // 🔌 Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    origin: [
+      "http://localhost:3000",
+      "https://youssefchat-nvhr.vercel.app",
+    ],
+    methods: ["GET", "POST"],
   },
 });
+
 
 // 🗺️ Track online users
 const onlineUsers = new Map<string, string>();
