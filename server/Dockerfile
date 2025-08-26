@@ -1,18 +1,20 @@
 # Use Node.js LTS
 FROM node:20
 
-# Set working directory
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of your source code
+# Copy all source files
 COPY . .
 
-# Expose the port your app uses
+# Build TypeScript
+RUN npm run build  # Make sure package.json has "build": "tsc"
+
+# Expose port for Back4App
 EXPOSE 5000
 
-# Start the server using ts-node
-CMD ["npm", "run", "start"]
+# Start the compiled JS
+CMD ["node", "dist/index.js"]  # Adjust path to your compiled entry file
